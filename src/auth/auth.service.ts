@@ -23,4 +23,18 @@ export class AuthService {
       access_token: this.jwtService.sign(payload),
     };
   }
+
+  async oAuthLogin(user: any) {
+    if (!user) {
+      throw new Error('User not found!!!');
+    }
+    const payload = {
+      email: user.email,
+      name: user.name,
+    };
+
+    const jwt = await this.jwtService.sign(payload);
+
+    return { jwt };
+  }
 }
